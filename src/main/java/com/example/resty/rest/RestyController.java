@@ -17,7 +17,7 @@ public class RestyController {
     BookService bookService;
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public ResponseEntity getBooks() {
+    public ResponseEntity<List<BookBE>> getBooks() {
 
         System.out.println("GET called");
         List<BookBE> books = bookService.findAll();
