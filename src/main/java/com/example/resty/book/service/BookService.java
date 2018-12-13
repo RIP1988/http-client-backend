@@ -24,8 +24,8 @@ public class BookService {
         return books;
     }
 
-    public void saveBook(BookBE book) {
-        bookRepository.save(book);
+    public BookBE saveBook(BookBE book) {
+        return bookRepository.save(book);
     }
 
     public void deleteAll() {

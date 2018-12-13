@@ -28,7 +28,7 @@ public class RestyController {
     }
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)
-    public ResponseEntity getBook(@RequestParam Long id) {
+    public ResponseEntity<BookBE> getBook(@RequestParam Long id) {
 
         BookBE book = bookService.findById(id);
         return ResponseEntity.ok()
@@ -37,14 +37,14 @@ public class RestyController {
     }
 
     @RequestMapping(value = "/savebook", method = RequestMethod.POST)
-    public ResponseEntity saveBook(@RequestBody BookBE book) {
-        bookService.saveBook(book);
+    public ResponseEntity<BookBE> saveBook(@RequestBody BookBE book) {
+        BookBE savedBook = bookService.saveBook(book);
         return ResponseEntity.ok()
-                .header("Access-Control-Allow-Origin", "*").body(null);
+                .header("Access-Control-Allow-Origin", "*").body(savedBook);
     }
 
     @RequestMapping(value = "/init", method = RequestMethod.POST)
-    public ResponseEntity initDB() {
+    public ResponseEntity<List<BookBE>> initDB() {
         if (bookService.findAll().isEmpty()) {
             BookBE book1 = new BookBE("Hobbit", "J.R.R. Tolkien");
             BookBE book2 = new BookBE("Lord of the rings", "J.R.R. Tolkien");
@@ -57,7 +57,7 @@ public class RestyController {
             });
         }
         return ResponseEntity.ok()
-                .header("Access-Control-Allow-Origin", "*").body(null);
+                .header("Access-Control-Allow-Origin", "*").body(bookService.findAll());
     }
 
 }
