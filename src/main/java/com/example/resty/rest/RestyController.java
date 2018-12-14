@@ -43,6 +43,13 @@ public class RestyController {
                 .header("Access-Control-Allow-Origin", "*").body(savedBook);
     }
 
+    @RequestMapping(value = "/savebook", method = RequestMethod.PUT)
+    public ResponseEntity<BookBE> editBook(@RequestBody BookBE book) {
+        BookBE savedBook = bookService.saveBook(book);
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Origin", "*").body(savedBook);
+    }
+
     @RequestMapping(value = "/init", method = RequestMethod.POST)
     public ResponseEntity<List<BookBE>> initDB() {
         if (bookService.findAll().isEmpty()) {
