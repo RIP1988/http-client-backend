@@ -38,6 +38,13 @@ public class RestyController {
                 .header("Access-Control-Allow-Origin", "*")
                 .body(book);
     }
+    
+    @RequestMapping(value = "/deletebook", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delteBook(@RequestParam Long id) {
+        bookService.deleteBook(id);
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Origin", "*").body(null);
+    }
 
     @RequestMapping(value = "/savebook", method = RequestMethod.POST)
     public ResponseEntity<BookBE> saveBook(@RequestBody BookBE book) {
