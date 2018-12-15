@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 public class RestyController {
 
@@ -27,10 +29,11 @@ public class RestyController {
 
     }
 
-    @RequestMapping(value = "/book", method = RequestMethod.GET)
-    public ResponseEntity<BookBE> getBook(@RequestParam Long id) {
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public ResponseEntity<BookBE> getBook(@PathVariable Long id) {
 
         BookBE book = bookService.findById(id);
+        System.out.println("GET single book called." + book != null ? "Found book." : "No book found.");
         return ResponseEntity.ok()
                 .header("Access-Control-Allow-Origin", "*")
                 .body(book);
